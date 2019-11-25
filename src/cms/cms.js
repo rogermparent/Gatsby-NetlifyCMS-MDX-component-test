@@ -4,6 +4,25 @@ import CMS from "netlify-cms-app"
  * Optionally pass in a config object. This object will be merged into `config.yml` if it exists
  */
 
+CMS.registerEditorComponent({
+  id: "alertbutton",
+  label: "Alert Button",
+  fields: [
+    {name: 'text', label: "Button Text", widget: 'string'},
+    {name: 'alert', label: "Alert Text", widget: 'string'},
+  ],
+  pattern: /<AlertButton(?: text=")?(.*?)"?>(.*?)<\/AlertButton>/,
+  fromBlock: function(match){
+    return {
+      alert: match[1],
+      text: match[2]
+    }
+  },
+  toBlock: function(obj){
+    return `<AlertButton${obj.alert ? ` text="${obj.alert}"` : ''}>${obj.text}</AlertButton>`
+  }
+})
+
 CMS.init({
   config: {
     backend: {
