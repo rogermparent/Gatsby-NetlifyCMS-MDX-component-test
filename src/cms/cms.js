@@ -21,6 +21,7 @@ CMS.init({
         label_singular: "Post",
         folder: "content/blog",
         extension: "mdx",
+        format: "frontmatter",
         create: true,
         fields: [
           { name: "path", label: "Path" },
