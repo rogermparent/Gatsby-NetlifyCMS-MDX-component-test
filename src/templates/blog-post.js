@@ -1,11 +1,22 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
+import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
+
+const AlertButton = ({text, children}) => (
+  <button
+    onClick={()=>{
+      window.alert(text || "No alert text given!")
+    }}
+  >
+    {children}
+  </button>
+)
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -30,7 +41,11 @@ class BlogPostTemplate extends React.Component {
         >
           {post.frontmatter.date}
         </p>
-        <MDXRenderer>{post.body}</MDXRenderer>
+        <MDXProvider
+          components={{AlertButton}}
+        >
+          <MDXRenderer>{post.body}</MDXRenderer>
+        </MDXProvider>
         <hr
           style={{
             marginBottom: rhythm(1),
